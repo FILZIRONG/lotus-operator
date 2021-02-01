@@ -1,0 +1,8 @@
+domain: filecoin.io
+layout: go.kubebuilder.io/v3
+projectName: lotus-operator
+repo: github.com/coryschwartz/lotus-operator
+version: 3-alpha
+plugins:
+  manifests.sdk.operatorframework.io/v2: {}
+  scorecard.sdk.operatorframework.io/v2: {}
