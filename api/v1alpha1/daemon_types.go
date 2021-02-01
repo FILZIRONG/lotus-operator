@@ -20,28 +20,27 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
-
 // DaemonSpec defines the desired state of Daemon
 type DaemonSpec struct {
 	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
 	// Important: Run "make" to regenerate code after modifying this file
-
-	// Foo is an example field of Daemon. Edit Daemon_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	Image               string `json:"Image"`
+	ApiListenAddress    string `json:"ApiListenAddress"`
+	Libp2pListenAddress string `json:"Libp2pListenAddress"`
 }
 
 // DaemonStatus defines the observed state of Daemon
 type DaemonStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	PeerId     string   `json:"PeerID"`
+	Wallets    []string `json:"Wallets"`
+	SyncStatus string   `json:"SyncStatus"`
 }
 
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
 
 // Daemon is the Schema for the daemons API
+// +kubebuilder:subresource:status
 type Daemon struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
