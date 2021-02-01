@@ -1,0 +1,24 @@
+# permissions for end users to edit daemons.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: daemon-editor-role
+rules:
+- apiGroups:
+  - lotus.filecoin.io
+  resources:
+  - daemons
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - lotus.filecoin.io
+  resources:
+  - daemons/status
+  verbs:
+  - get
