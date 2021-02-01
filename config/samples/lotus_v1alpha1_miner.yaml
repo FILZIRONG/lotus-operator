@@ -1,0 +1,7 @@
+apiVersion: lotus.filecoin.io/v1alpha1
+kind: Miner
+metadata:
+  name: miner-sample
+spec:
+  # Add fields here
+  foo: bar

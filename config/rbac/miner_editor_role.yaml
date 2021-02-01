@@ -1,0 +1,24 @@
+# permissions for end users to edit miners.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: miner-editor-role
+rules:
+- apiGroups:
+  - lotus.filecoin.io
+  resources:
+  - miners
+  verbs:
+  - create
+  - delete
+  - get
+  - list
+  - patch
+  - update
+  - watch
+- apiGroups:
+  - lotus.filecoin.io
+  resources:
+  - miners/status
+  verbs:
+  - get

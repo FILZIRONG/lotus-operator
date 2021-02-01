@@ -1,0 +1,20 @@
+# permissions for end users to view miners.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: miner-viewer-role
+rules:
+- apiGroups:
+  - lotus.filecoin.io
+  resources:
+  - miners
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - lotus.filecoin.io
+  resources:
+  - miners/status
+  verbs:
+  - get
