@@ -94,6 +94,14 @@ func main() {
 		setupLog.Error(err, "unable to create controller", "controller", "Miner")
 		os.Exit(1)
 	}
+	if err = (&controllers.WalletReconciler{
+		Client: mgr.GetClient(),
+		Log:    ctrl.Log.WithName("controllers").WithName("Wallet"),
+		Scheme: mgr.GetScheme(),
+	}).SetupWithManager(mgr); err != nil {
+		setupLog.Error(err, "unable to create controller", "controller", "Wallet")
+		os.Exit(1)
+	}
 	// +kubebuilder:scaffold:builder
 
 	if err := mgr.AddHealthzCheck("health", healthz.Ping); err != nil {

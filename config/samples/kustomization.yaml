@@ -2,4 +2,5 @@
 resources:
 - lotus_v1alpha1_daemon.yaml
 - lotus_v1alpha1_miner.yaml
+- lotus_v1alpha1_wallet.yaml
 # +kubebuilder:scaffold:manifestskustomizesamples
