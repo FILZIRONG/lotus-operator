@@ -3,5 +3,6 @@ kind: Daemon
 metadata:
   name: daemon-sample
 spec:
-  # Add fields here
-  foo: bar
+  Image: "travisperson/lotus"
+  ApiListenAddress: "/ip4/0.0.0.0/tcp/1234/http"
+  Libp2pListenAddress: "/ip4/0.0.0.0/tcp/1347"

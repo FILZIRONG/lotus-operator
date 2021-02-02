@@ -20,22 +20,29 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// EDIT THIS FILE!  THIS IS SCAFFOLDING FOR YOU TO OWN!
-// NOTE: json tags are required.  Any new fields you add must have json tags for the fields to be serialized.
+type MinerConfig struct {
+	// Configuration options used to generate the config file.
+	// Could probably pull this struct out of lotus
+}
 
 // MinerSpec defines the desired state of Miner
 type MinerSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-
-	// Foo is an example field of Miner. Edit Miner_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	Config      *MinerConfig `json:"Config"`
+	OwnerWallet string       `json:"OwnerWallet"`
 }
+
+// Needs to be string for serializaiton
+type WindowPostHour string
+
+type WindowPostSchedule map[WindowPostHour]int
 
 // MinerStatus defines the observed state of Miner
 type MinerStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	MinerId               string             `json:"MinerId"`
+	Sectors               uint               `json:"Sectors"`
+	WindowPostSchedule    WindowPostSchedule `json:"WindowPostSchedule"`
+	CurrentWindowPostHour WindowPostHour     `json:"CurrentWindowPostHour"`
+	// Maybe also current work going on, how many sealing, etc?
 }
 
 // +kubebuilder:object:root=true

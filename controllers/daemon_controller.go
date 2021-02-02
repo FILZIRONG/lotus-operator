@@ -47,10 +47,23 @@ type DaemonReconciler struct {
 //
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.7.0/pkg/reconcile
+// +kubebuilder:rbac:groups=lotus.filecoin.io,resources=daemons,verbs=get;list;watch;create;patch;delete
+// +kubebuilder:rbac:groups=lotus.filecoin.io,resources=daemons/status,verbs=get;update;patch
+// +kubebuilder:rbac:groups=lotus.filecoin.io,resources=daemons/finalizers,verbs=update
+// +kubebuilder:rbac:groups=core,resources=pods,verbs=get;list;
 func (r *DaemonReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	_ = r.Log.WithValues("daemon", req.NamespacedName)
 
-	// your logic here
+	daemon := lotusv1alpha1.Daemon{}
+	if err := r.Get(ctx, req.NamespacedName, &daemon); err != nil {
+		r.Log.Error(err, "can't get daemon for reconsiliation.")
+		return ctrl.Result{}, err
+	}
+	r.Log.Info("Create a configmap with the desired config")
+	r.Log.Info("Create volumes")
+	r.Log.Info("Create Deployment")
+	r.Log.Info("Conect to the lotus API for StatusWriter?")
+	r.Log.Info("reconciled.")
 
 	return ctrl.Result{}, nil
 }

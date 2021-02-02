@@ -25,17 +25,12 @@ import (
 
 // WalletSpec defines the desired state of Wallet
 type WalletSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-
-	// Foo is an example field of Wallet. Edit Wallet_types.go to remove/update
-	Foo string `json:"foo,omitempty"`
+	Exported string `json:"Exported"`
 }
 
 // WalletStatus defines the observed state of Wallet
 type WalletStatus struct {
-	// INSERT ADDITIONAL STATUS FIELD - define observed state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
+	Daemons []string `json:"Daemons"`
 }
 
 // +kubebuilder:object:root=true

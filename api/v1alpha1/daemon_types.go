@@ -20,13 +20,17 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
+type DaemonConfig struct {
+	// Configuration options used to generate the config file.
+	// Could probably pull this struct out of lotus
+	Libp2pListenAddress string `json:"Libp2pListenAddress"`
+	ListenAddress       string `json:"ListenAddress"`
+	//etc...
+}
+
 // DaemonSpec defines the desired state of Daemon
 type DaemonSpec struct {
-	// INSERT ADDITIONAL SPEC FIELDS - desired state of cluster
-	// Important: Run "make" to regenerate code after modifying this file
-	Image               string `json:"Image"`
-	ApiListenAddress    string `json:"ApiListenAddress"`
-	Libp2pListenAddress string `json:"Libp2pListenAddress"`
+	Config *DaemonConfig `json:"Config"`
 }
 
 // DaemonStatus defines the observed state of Daemon

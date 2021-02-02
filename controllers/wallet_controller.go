@@ -47,11 +47,19 @@ type WalletReconciler struct {
 //
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.7.0/pkg/reconcile
+// +kubebuilder:rbac:groups=lotus.filecoin.io,resources=wallets,verbs=get;list;watch;create;patch;delete
+// +kubebuilder:rbac:groups=lotus.filecoin.io,resources=wallets/status,verbs=get;update;patch
+// +kubebuilder:rbac:groups=lotus.filecoin.io,resources=wallets/finalizers,verbs=update
+// +kubebuilder:rbac:groups=core,resources=pods,verbs=get;list;
 func (r *WalletReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	_ = r.Log.WithValues("wallet", req.NamespacedName)
 
-	// your logic here
-
+	wallet := lotusv1alpha1.Daemon{}
+	if err := r.Get(ctx, req.NamespacedName, &wallet); err != nil {
+		r.Log.Error(err, "can't get daemon for reconsiliation.")
+		return ctrl.Result{}, err
+	}
+	r.Log.Info("import wallet for each daemon in wallet.Daemons")
 	return ctrl.Result{}, nil
 }
 

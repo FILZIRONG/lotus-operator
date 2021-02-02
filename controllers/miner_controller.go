@@ -47,10 +47,18 @@ type MinerReconciler struct {
 //
 // For more details, check Reconcile and its Result here:
 // - https://pkg.go.dev/sigs.k8s.io/controller-runtime@v0.7.0/pkg/reconcile
+// +kubebuilder:rbac:groups=lotus.filecoin.io,resources=miners,verbs=get;list;watch;create;patch;delete
+// +kubebuilder:rbac:groups=lotus.filecoin.io,resources=miners/status,verbs=get;update;patch
+// +kubebuilder:rbac:groups=lotus.filecoin.io,resources=miners/finalizers,verbs=update
+// +kubebuilder:rbac:groups=core,resources=pods,verbs=get;list;
 func (r *MinerReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 	_ = r.Log.WithValues("miner", req.NamespacedName)
-
-	// your logic here
+	miner := lotusv1alpha1.Miner{}
+	if err := r.Get(ctx, req.NamespacedName, &miner); err != nil {
+		r.Log.Error(err, "can't get miner for reconsiliation.")
+		return ctrl.Result{}, err
+	}
+	r.Log.Info("reconciled.")
 
 	return ctrl.Result{}, nil
 }
